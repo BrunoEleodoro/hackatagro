@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hackatagro/pages/cadastro/cadastro_page.dart';
+import 'package:hackatagro/pages/historico/historico_page.dart';
 import 'package:hackatagro/pages/home/home_page.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -16,6 +17,7 @@ class AppRoute {
   static const String routeLogin = '/login';
   static const String routeRoot = '/login';
   static const String routeCadastro = '/cadastro';
+  static const String routeHistorico = '/historico';
 
   ///#endregion
 
@@ -86,6 +88,9 @@ class AppRoute {
       case routeCadastro:
         return MaterialPageRoute<dynamic>(
             settings: settings, builder: (_) => CadastroPage());
+      case routeHistorico:
+        return MaterialPageRoute<dynamic>(
+            settings: settings, builder: (_) => HistoricoPage());
       default:
         return null;
     }

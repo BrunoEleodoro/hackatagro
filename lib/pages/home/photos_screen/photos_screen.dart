@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hackatagro/utils/app_route.dart';
 
 class LatestPhotos extends StatefulWidget {
   @override
@@ -39,7 +40,6 @@ class _LatestPhotosState extends State<LatestPhotos>
         'userImage': 'https://i.pravatar.cc/300'
       }
     ];
-    super.build(context);
     return Container(
       child: ListView.builder(
         shrinkWrap: true,
@@ -64,7 +64,10 @@ class _LatestPhotosState extends State<LatestPhotos>
                   children: [
                     ClipRRect(
                       child: InkWell(
-                        onTap: () async {},
+                        onTap: () async {
+                          print('ok');
+                          Navigator.pushNamed(context, AppRoute.routeHistorico);
+                        },
                         child: CachedNetworkImage(
                           placeholder: (context, url) =>
                               Center(child: CircularProgressIndicator()),
@@ -76,7 +79,10 @@ class _LatestPhotosState extends State<LatestPhotos>
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        print('ok');
+                        Navigator.pushNamed(context, AppRoute.routeHistorico);
+                      },
                       child: ListTile(
                         leading: CircleAvatar(
                           backgroundImage: NetworkImage(userImage),

@@ -60,6 +60,9 @@ dependencies:
   material_floating_search_bar: ^0.3.4
   firebase_auth: ^2.0.0
   flutter_login: ^2.1.0
+  timeline_tile: ^2.0.0
+  web3dart: ^2.1.4
+  timelines: ^0.1.0
 
 flutter_intl:
   enabled: true

@@ -30,9 +30,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    if (context.read<FirebaseAuthProvider>().isAuthenticated) {
-      Navigator.pushReplacementNamed(context, AppRoute.routeHome);
-    }
+    Future.delayed(Duration.zero, () {
+      if (context.read<FirebaseAuthProvider>().isAuthenticated) {
+        Navigator.pushReplacementNamed(context, AppRoute.routeHome);
+      }
+    });
   }
 
   @override
