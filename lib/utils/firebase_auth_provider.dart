@@ -55,7 +55,7 @@ class FirebaseAuthProvider extends ChangeNotifierSafety {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      await _firebaseAuth.currentUser!.sendEmailVerification();
+      // await _firebaseAuth.currentUser!.sendEmailVerification();
       return null;
     } on FirebaseAuthException catch (e) {
       return e.message;

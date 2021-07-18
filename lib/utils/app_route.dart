@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hackatagro/pages/cadastro/cadastro_page.dart';
+import 'package:hackatagro/pages/home/home_page.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:hackatagro/pages/login/login_page.dart';
@@ -79,6 +80,9 @@ class AppRoute {
       case routeLogin:
         return MaterialPageRoute<dynamic>(
             settings: settings, builder: (_) => LoginPage());
+      case routeHome:
+        return MaterialPageRoute<dynamic>(
+            settings: settings, builder: (_) => HomePage());
       case routeCadastro:
         return MaterialPageRoute<dynamic>(
             settings: settings, builder: (_) => CadastroPage());

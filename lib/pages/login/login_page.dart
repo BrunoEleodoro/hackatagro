@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:hackatagro/utils/firebase_auth_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:hackatagro/pages/cadastro/cadastro_provider.dart';
 import 'package:hackatagro/utils/app_route.dart';
@@ -27,16 +28,30 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    if (context.read<FirebaseAuthProvider>().isAuthenticated) {
+      Navigator.pushReplacementNamed(context, AppRoute.routeHome);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FlutterLogin(
         title: 'Hackatagro',
         logo: 'assets/app/icons/icon.png',
-        onLogin: _authUser,
-        onSignup: _authUser,
+        onLogin: (LoginData data) async {
+          return await context
+              .read<FirebaseAuthProvider>()
+              .signIn(data.name, data.password);
+        },
+        onSignup: (LoginData data) async {
+          return await context
+              .read<FirebaseAuthProvider>()
+              .signUp(data.name, data.password);
+        },
         onSubmitAnimationCompleted: () {
-          // Navigator.of(context).pushReplacement(MaterialPageRoute(
-          //   builder: (context) => DashboardScreen(),
-          // ));
+          Navigator.pushReplacementNamed(context, AppRoute.routeHome);
         },
         onRecoverPassword: _recoverPassword,
         messages: LoginMessages(
