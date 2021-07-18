@@ -500,6 +500,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  hex:
+    dependency: "direct main"
+    description:
+      name: hex
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   html:
     dependency: "direct main"
     description:
@@ -508,7 +515,7 @@ packages:
     source: hosted
     version: "0.15.0"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
       url: "https://pub.dartlang.org"

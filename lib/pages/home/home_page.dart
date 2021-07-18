@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-final tabs = ['HOME', 'COLLECTIONS'];
+final tabs = ['HOME', 'MARKETPLACE'];
 
 class _HomePageState extends State<HomePage> {
   TextEditingController textController = TextEditingController();
@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
           ],
           title: Center(
             child: Text(
-              'Hackatagro',
+              'Rustico',
               style: TextStyle(
                 fontSize: 24,
                 color: Colors.black,

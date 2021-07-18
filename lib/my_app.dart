@@ -9,6 +9,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hackatagro/generated/l10n.dart';
+import 'package:hackatagro/pages/add_historico/add_historico_provider.dart';
 import 'package:hackatagro/pages/cadastro/cadastro_provider.dart';
 import 'package:hackatagro/pages/login/login_provider.dart';
 import 'package:hackatagro/services/app/app_dialog.dart';
@@ -58,6 +59,8 @@ Future<void> myMain() async {
         ChangeNotifierProvider<CadastroProvider>(
             create: (BuildContext context) => CadastroProvider(
                 context.read<ApiUser>(), context.read<FirebaseAuthProvider>())),
+        ChangeNotifierProvider<AddHistoricoProvider>(
+            create: (BuildContext context) => AddHistoricoProvider()),
         Provider<AppLoading>(create: (_) => AppLoading()),
         Provider<AppDialog>(create: (_) => AppDialog()),
         ChangeNotifierProvider<LocaleProvider>(

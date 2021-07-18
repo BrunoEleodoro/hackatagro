@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hackatagro/utils/app_asset.dart';
 import 'package:hackatagro/utils/app_config.dart';
 
@@ -35,7 +36,7 @@ class AppTheme {
       brightness: Brightness.light,
       primaryColor: primaryColor,
       secondaryHeaderColor: accentColor,
-      fontFamily: assets.fontRoboto,
+      fontFamily: GoogleFonts.ptSans().fontFamily,
       pageTransitionsTheme: _buildPageTransitionsTheme(),
       buttonTheme: _buildButtonTheme(),
       textTheme: _buildTextTheme(),

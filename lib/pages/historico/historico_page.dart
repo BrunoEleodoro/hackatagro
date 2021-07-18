@@ -1,16 +1,57 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hackatagro/pages/add_historico/add_historico_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timelines/timelines.dart';
+import 'package:web3dart/credentials.dart';
+import 'package:hex/hex.dart';
+import 'package:provider/provider.dart';
 
 const kTileHeight = 50.0;
 
-class HistoricoPage extends StatelessWidget {
+class HistoricoPage extends StatefulWidget {
+  @override
+  _HistoricoPageState createState() => _HistoricoPageState();
+}
+
+class _HistoricoPageState extends State<HistoricoPage> {
   @override
   Widget build(BuildContext context) {
-    final data = _data(1);
+    if (context.watch<AddHistoricoProvider>().historico.length == 0) {
+      return Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+    final data = context.read<AddHistoricoProvider>().historico[0];
     return Scaffold(
         appBar: AppBar(
-          actions: [IconButton(icon: Icon(Icons.add), onPressed: () {})],
+          actions: [
+            IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () async {
+                  // var rng = new Random.secure();
+                  // Credentials credentials = EthPrivateKey.createRandom(rng);
+                  // var address = await credentials.extractAddress();
+                  // SharedPreferences prefs =
+                  //     await SharedPreferences.getInstance();
+                  // Wallet wallet = Wallet.createNew(
+                  //     EthPrivateKey.fromHex(address.hex),
+                  //     "UhYSmaUD8XtBZw5TKTPtags3Wz6gAngJJHLYgqf8y9E",
+                  //     rng);
+                  // var add = EthereumAddress.fromHex(address.toString());
+
+                  // String ppk = HEX.encode(wallet.privateKey.privateKey);
+                  // prefs.setString('pubKey', add.toString());
+                  // prefs.setString('privKey', ppk);
+
+                  // print('pubkey');
+                  // print(add.toString());
+                  // print('privKey');
+                  // print(ppk.toString());
+                })
+          ],
           title: Text(
             'Historico',
             style: TextStyle(
@@ -55,7 +96,7 @@ class _OrderTitle extends StatelessWidget {
     required this.orderInfo,
   }) : super(key: key);
 
-  final _OrderInfo orderInfo;
+  final OrderInfo orderInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +125,7 @@ class _InnerTimeline extends StatelessWidget {
     required this.messages,
   });
 
-  final List<_DeliveryMessage> messages;
+  final List<DeliveryMessage> messages;
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +175,7 @@ class _DeliveryProcesses extends StatelessWidget {
   const _DeliveryProcesses({Key? key, required this.processes})
       : super(key: key);
 
-  final List<_DeliveryProcess> processes;
+  final List<DeliveryProcess> processes;
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
@@ -203,117 +244,5 @@ class _DeliveryProcesses extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class _OnTimeBar extends StatelessWidget {
-  const _OnTimeBar({Key? key, required this.driver}) : super(key: key);
-
-  final _DriverInfo driver;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Spacer(),
-        Text(
-          'Driver\n${driver.name}',
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(width: 12.0),
-        Container(
-          width: 40.0,
-          height: 40.0,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              fit: BoxFit.fitWidth,
-              image: NetworkImage(
-                driver.thumbnailUrl,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-_OrderInfo _data(int id) => _OrderInfo(
-      id: id,
-      date: DateTime.now(),
-      driverInfo: _DriverInfo(
-        name: 'Lucas',
-        thumbnailUrl:
-            'https://i.pinimg.com/originals/08/45/81/084581e3155d339376bf1d0e17979dc6.jpg',
-      ),
-      deliveryProcesses: [
-        _DeliveryProcess(
-          'Inicio do plantio',
-          messages: [
-            _DeliveryMessage('8:30am', '200 sementes'),
-            _DeliveryMessage('11:30am', 'regado'),
-          ],
-        ),
-        _DeliveryProcess(
-          'Aplicacao de anti-praga',
-          messages: [
-            _DeliveryMessage('13:00pm',
-                'Puro Neen Óleo Natural Anti Pragas Quimiagri 1 Litro'),
-          ],
-        ),
-        _DeliveryProcess.complete(),
-      ],
-    );
-
-class _OrderInfo {
-  const _OrderInfo({
-    required this.id,
-    required this.date,
-    required this.driverInfo,
-    required this.deliveryProcesses,
-  });
-
-  final int id;
-  final DateTime date;
-  final _DriverInfo driverInfo;
-  final List<_DeliveryProcess> deliveryProcesses;
-}
-
-class _DriverInfo {
-  const _DriverInfo({
-    required this.name,
-    required this.thumbnailUrl,
-  });
-
-  final String name;
-  final String thumbnailUrl;
-}
-
-class _DeliveryProcess {
-  const _DeliveryProcess(
-    this.name, {
-    this.messages = const [],
-  });
-
-  const _DeliveryProcess.complete()
-      : this.name = 'Done',
-        this.messages = const [];
-
-  final String name;
-  final List<_DeliveryMessage> messages;
-
-  bool get isCompleted => name == 'Done';
-}
-
-class _DeliveryMessage {
-  const _DeliveryMessage(this.createdAt, this.message);
-
-  final String createdAt; // final DateTime createdAt;
-  final String message;
-
-  @override
-  String toString() {
-    return '$createdAt $message';
   }
 }

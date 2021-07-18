@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return FlutterLogin(
-        title: 'Hackatagro',
+        title: 'Rustico',
         logo: 'assets/app/icons/icon.png',
         onLogin: (LoginData data) async {
           return await context
