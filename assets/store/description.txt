@@ -1,0 +1,5 @@
+hackatagro App is a Flutter template.
+hackatagro App is completely free, with no ads.
+
+Privacy Policy: https://nhancv.github.io/apppolicy/hackatagro/PrivacyPolicy.html
+Terms of Service: https://nhancv.github.io/apppolicy/hackatagro/TermsofService.html
