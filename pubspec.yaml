@@ -65,6 +65,7 @@ dependencies:
   timelines: ^0.1.0
   hex: ^0.2.0
   http: ^0.13.3
+  introduction_screen: ^2.1.0
 
 flutter_intl:
   enabled: true
@@ -98,6 +99,7 @@ flutter:
     - assets/base/fonts/
     - assets/app/icons/
     - assets/app/fonts/
+    - assets/standardToken.json
 
   fonts:
     - family: Helvetica

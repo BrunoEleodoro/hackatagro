@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hackatagro/pages/add_historico/add_historico_page.dart';
 import 'package:hackatagro/pages/add_historico/add_historico_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timelines/timelines.dart';
@@ -19,18 +20,22 @@ class HistoricoPage extends StatefulWidget {
 class _HistoricoPageState extends State<HistoricoPage> {
   @override
   Widget build(BuildContext context) {
-    if (context.watch<AddHistoricoProvider>().historico.length == 0) {
-      return Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
-    }
-    final data = context.read<AddHistoricoProvider>().historico[0];
+    // if (context.watch<AddHistoricoProvider>().historico.length == 0) {
+    //   return Scaffold(
+    //     body: Center(child: CircularProgressIndicator()),
+    //   );
+    // }
+    // final data = context.read<AddHistoricoProvider>().historico[0];
+    final data = _data(1);
     return Scaffold(
         appBar: AppBar(
           actions: [
             IconButton(
                 icon: Icon(Icons.add),
                 onPressed: () async {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => AddHistoricoPage()),
+                  );
                   // var rng = new Random.secure();
                   // Credentials credentials = EthPrivateKey.createRandom(rng);
                   // var address = await credentials.extractAddress();
@@ -96,7 +101,7 @@ class _OrderTitle extends StatelessWidget {
     required this.orderInfo,
   }) : super(key: key);
 
-  final OrderInfo orderInfo;
+  final _OrderInfo orderInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -244,5 +249,83 @@ class _DeliveryProcesses extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+_OrderInfo _data(int id) => _OrderInfo(
+      id: id,
+      date: DateTime.now(),
+      driverInfo: _DriverInfo(
+        name: 'Philipe',
+        thumbnailUrl:
+            'https://i.pinimg.com/originals/08/45/81/084581e3155d339376bf1d0e17979dc6.jpg',
+      ),
+      deliveryProcesses: [
+        DeliveryProcess(
+          'Primeiro plantio',
+          messages: [
+            DeliveryMessage('8:30am', '300 graos colocados na terra arada'),
+          ],
+        ),
+        DeliveryProcess(
+          'Colheita',
+          messages: [
+            DeliveryMessage('13:00pm',
+                'Colheita realizada pelo funcionario da empresa seguindo as normas'),
+          ],
+        ),
+        DeliveryProcess.complete(),
+      ],
+    );
+
+class _OrderInfo {
+  const _OrderInfo({
+    required this.id,
+    required this.date,
+    required this.driverInfo,
+    required this.deliveryProcesses,
+  });
+
+  final int id;
+  final DateTime date;
+  final _DriverInfo driverInfo;
+  final List<DeliveryProcess> deliveryProcesses;
+}
+
+class _DriverInfo {
+  const _DriverInfo({
+    required this.name,
+    required this.thumbnailUrl,
+  });
+
+  final String name;
+  final String thumbnailUrl;
+}
+
+class _DeliveryProcess {
+  const _DeliveryProcess(
+    this.name, {
+    this.messages = const [],
+  });
+
+  const _DeliveryProcess.complete()
+      : this.name = 'Done',
+        this.messages = const [];
+
+  final String name;
+  final List<_DeliveryMessage> messages;
+
+  bool get isCompleted => name == 'Done';
+}
+
+class _DeliveryMessage {
+  const _DeliveryMessage(this.createdAt, this.message);
+
+  final String createdAt; // final DateTime createdAt;
+  final String message;
+
+  @override
+  String toString() {
+    return '$createdAt $message';
   }
 }
